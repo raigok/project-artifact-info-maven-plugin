@@ -30,8 +30,8 @@
         <connection>scm:git:git@github.com:raigok/project-artifact-info-maven-plugin.git</connection>
         <developerConnection>scm:git:git@github.com:raigok/project-artifact-info-maven-plugin.git</developerConnection>
         <url>https://github.com/raigok/project-artifact-info-maven-plugin</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
     <distributionManagement>
         <snapshotRepository>
@@ -181,6 +181,16 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+        <profile>
+            <id>bintray</id>
+            <distributionManagement>
+                <repository>
+                    <id>bintray-raigo-maven-repo</id>
+                    <name>raigo-maven-repo</name>
+                    <url>https://api.bintray.com/maven/raigo/maven-repo/project-artifact-info-maven-plugin/;publish=1</url>
+                </repository>
+            </distributionManagement>
         </profile>
     </profiles>
 </project>
