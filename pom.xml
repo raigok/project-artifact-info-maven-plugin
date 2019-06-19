@@ -3,7 +3,7 @@
 
     <groupId>ee.originaal.maven.plugins</groupId>
     <artifactId>project-artifact-info-maven-plugin</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <packaging>maven-plugin</packaging>
 
     <name>project-artifact-info-maven-plugin</name>
@@ -30,7 +30,7 @@
         <connection>scm:git:git@github.com:raigok/project-artifact-info-maven-plugin.git</connection>
         <developerConnection>scm:git:git@github.com:raigok/project-artifact-info-maven-plugin.git</developerConnection>
         <url>https://github.com/raigok/project-artifact-info-maven-plugin</url>
-        <tag>HEAD</tag>
+        <tag>project-artifact-info-maven-plugin-1.0.1</tag>
     </scm>
 
     <distributionManagement>
