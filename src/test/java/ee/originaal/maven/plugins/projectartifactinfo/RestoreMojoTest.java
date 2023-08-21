@@ -12,8 +12,8 @@ import static org.mockito.Mockito.mock;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
@@ -39,7 +39,7 @@ class RestoreMojoTest {
         MavenProject mavenProject = newMavenProject(newArtifact("jar", null));
         assertThat(mavenProject.getArtifact().getFile()).isNull();
 
-        FileUtils.write(artifactsInfoFile, "jar,,/tmp/path/to/artifact-1.0.0.jar", UTF_8);
+        Files.write(artifactsInfoFile.toPath(), "jar,,/tmp/path/to/artifact-1.0.0.jar".getBytes(UTF_8));
         newRestoreMojo(mavenProject).execute();
 
         assertThat(mavenProject.getArtifact().getFile()).hasToString("/tmp/path/to/artifact-1.0.0.jar");
@@ -49,7 +49,7 @@ class RestoreMojoTest {
     void restoresMainAndAttachedArtifactsFromFile() throws IOException, MojoExecutionException {
         MavenProject mavenProject = newMavenProject(newArtifact("jar", null));
 
-        FileUtils.writeLines(artifactsInfoFile, asList(
+        Files.write(artifactsInfoFile.toPath(), asList(
                 "jar,,/tmp/path/to/artifact-1.0.0.jar",
                 "jar,sources,/tmp/path/to/artifact-sources-1.0.0.jar",
                 "test-jar,tests,/tmp/path/to/artifact-tests-1.0.0.jar"));

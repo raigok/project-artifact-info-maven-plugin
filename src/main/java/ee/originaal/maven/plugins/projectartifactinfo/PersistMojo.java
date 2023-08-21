@@ -7,10 +7,11 @@ import static java.util.stream.Stream.concat;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.stream.Stream;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -44,7 +45,7 @@ public class PersistMojo extends AbstractProjectArtifactInfoMojo {
                 .collect(toList());
 
         try {
-            FileUtils.writeLines(artifactInfoFile, UTF_8.toString(), linesToWrite);
+            Files.write(artifactInfoFile.toPath(), linesToWrite, UTF_8);
         } catch (IOException e) {
             throw new MojoExecutionException(String.format("Failed to store artifacts info in file %s", artifactInfoFile), e);
         }

@@ -6,11 +6,12 @@ import static java.util.stream.Collectors.toList;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 import com.google.common.annotations.VisibleForTesting;
-import org.apache.commons.io.FileUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Component;
@@ -40,9 +41,8 @@ public class RestoreMojo extends AbstractProjectArtifactInfoMojo {
     private List<ProjectArtifactInfo> readFromFile(File artifactInfoFile) throws MojoExecutionException {
         getLog().info("Restoring artifact info from " + artifactInfoFile);
 
-        try {
-            return FileUtils.readLines(artifactInfoFile, UTF_8).stream()
-                    .map(ProjectArtifactInfo::parse)
+        try (Stream<String> lines = Files.lines(artifactInfoFile.toPath(), UTF_8)) {
+            return lines.map(ProjectArtifactInfo::parse)
                     .collect(toList());
         } catch (IllegalArgumentException | IOException e) {
             throw new MojoExecutionException("Failed to read artifact info from '" + artifactInfoFile + "'", e);
